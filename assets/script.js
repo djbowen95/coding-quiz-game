@@ -1,3 +1,6 @@
+console.log("Script successfully linked.")
+console.log("Plan for tomorrow: \n - Arrays on Codecademy\n - CSS on Codecademy\n - Code for question generation\n - Work on README file for last week homework")
+
 // Code for a "Start" button, that disappears when quiz starts.
 
 // Code for a question, that is replaced with another question when answered.
