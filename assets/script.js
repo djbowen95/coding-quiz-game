@@ -20,12 +20,13 @@ function changeDisplay() {
 }
 
 // Display a countdown timer, that counts down from 60. 
+
+let secondsLeft = 60;
 function startTimer() {
-    let secondsLeft = 61;
     const timerInterval = setInterval(function() {
-        secondsLeft--;
         displayCountdown.innerHTML = secondsLeft + " seconds remaining.";
-        if (secondsLeft === 0) {
+        secondsLeft--;
+        if (secondsLeft < 0) {
             clearInterval(timerInterval);
             displayCountdown.innerHTML = "Time's up!";
         }
@@ -33,6 +34,12 @@ function startTimer() {
 };
 
 // Wrong answer button - to test code. 
+let wrongAnswerButton = document.getElementById("wrong-answer-button");
+wrongAnswerButton.addEventListener("click", wrongAnswer);
+function wrongAnswer() {
+    secondsLeft = secondsLeft - 5;
+    console.log("A wrong answer has been entered!");
+};
 
 
 // Code for a question, that is replaced with another question when answered.
