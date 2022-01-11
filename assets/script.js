@@ -14,33 +14,25 @@ function isClicked() {
     changeDisplay();
   }
 
+// Hide start button; show questions, timer and scores.
+function changeDisplay() {
+    console.log("The display will be changed here.")
+}
+
+// Display a countdown timer, that counts down from 60. 
 function startTimer() {
-  displayCountdown.innerHTML = "Hello";
-  console.log("The start button has been clicked.");
-}
+    let secondsLeft = 61;
+    const timerInterval = setInterval(function() {
+        secondsLeft--;
+        displayCountdown.innerHTML = secondsLeft + " seconds remaining.";
+        if (secondsLeft === 0) {
+            clearInterval(timerInterval);
+            displayCountdown.innerHTML = "Time's up!";
+        }
+    }, 1000);
+};
 
-/*
-var secondsLeft = 30;
-function setTime() {
-  // Sets interval in variable
-  var timerInterval = setInterval(function() {
-    var timeEl = document.querySelector("#timer");
-    secondsLeft--;
-    timeEl.textContent = secondsLeft + " seconds left for the game.";
-    if(secondsLeft === 0) {
-      // Stops execution of action at set interval
-      clearInterval(timerInterval);
-      // Calls function to create and append image
-      sendMessage();
-      console.log("Timer is working");
-    }
-  }, 1000);
-}
-*/
-
-
-
-// Code for a countdown timer.
+// Wrong answer button - to test code. 
 
 
 // Code for a question, that is replaced with another question when answered.
