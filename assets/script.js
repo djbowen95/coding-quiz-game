@@ -3,6 +3,9 @@ const startGameButton = document.querySelector('#start-game-button');
 const wrongAnswerButton = document.querySelector('#wrong-answer-button');
 const generateQuestionButton = document.querySelector('#generate-question-button');
 const questionTitle = document.querySelector('#question-title');
+const responses = document.querySelectorAll('.response');
+rightAnswer = "";
+wrongAnswers = "";
 
 // When START GAME BUTTON clicked: Start timer, change display, run first question.
 startGameButton.addEventListener("click", startGame);
@@ -40,9 +43,11 @@ function generateQuestion() {
     console.log("A question is being generated.");
     const nextQuestion = findQuestion();
     writeQuestionTitle(nextQuestion); 
-    let correctAnswerLocation = writeCorrectAnswer(nextQuestion);
+    const correctAnswerLocation = assignCorrectAnswer();
+    console.log(correctAnswerLocation);
+    writeCorrectAnswer(nextQuestion, correctAnswerLocation);
     writeOtherAnswers(nextQuestion, correctAnswerLocation);
-    console.log(correctAnswerLocation); 
+    createEventListeners();
 };
 
 // Select a new question from the pool; make sure it hasn't already been used. 
@@ -74,29 +79,37 @@ function writeQuestionTitle(nextQuestion) {
 }
 
 // Write the answers to the HTML. Randomly assign the correct answer.
-function writeCorrectAnswer(nextQuestion) {
+function assignCorrectAnswer() {
     const randomAnswerLocation = Math.floor(Math.random() * 4);
-    console.log('The right answer')
-    console.log(nextQuestion.answer1);
     return randomAnswerLocation;
 }
 
-function writeOtherAnswers(nextQuestion, correctAnswerLocation) {
-    console.log('The wrong answer')
-    console.log(nextQuestion.answer2);
+function writeCorrectAnswer(nextQuestion, correctAnswerLocation) {
+    responses[correctAnswerLocation].innerHTML = `<p class="right-answer">${nextQuestion.answer1}</p>`;
 }
 
-// Wrong answer button - this is to test code.
-wrongAnswerButton.addEventListener("click", wrongAnswer);
-function wrongAnswer() {
-    secondsLeft = secondsLeft - 5;
-    console.log("A wrong answer has been entered.");
+function writeOtherAnswers(nextQuestion, correctAnswerLocation) {
+    if (correctAnswerLocation != 0) {
+        responses[0].innerHTML = `<p class="wrong-answer">${nextQuestion.answer2}</p>`;
+    } else {
+        responses[3].innerHTML = `<p class="wrong-answer">${nextQuestion.answer2}</p>`;
+    }
+    if (correctAnswerLocation != 1) {
+        responses[1].innerHTML = `<p class="wrong-answer">${nextQuestion.answer3}</p>`;
+    } else {
+        responses[3].innerHTML = `<p class="wrong-answer">${nextQuestion.answer3}</p>`;
+    }
+    if (correctAnswerLocation != 2) {
+        responses[2].innerHTML = `<p class="wrong-answer">${nextQuestion.answer4}</p>`;
+    } else {
+        responses[3].innerHTML = `<p class="wrong-answer">${nextQuestion.answer4}</p>`;
+    }
 };
 
 // Change page layout to show GAME IS OVER.
 function endGameDisplay() {
     console.log("The game is now over.")
-}
+};
 
 // Questions, stored as objects. The answer1 pair is always 'true'.
 const question1 = { 
