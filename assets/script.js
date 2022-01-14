@@ -106,6 +106,33 @@ function writeOtherAnswers(nextQuestion, correctAnswerLocation) {
     }
 };
 
+// Create event listeners once question has been generated.
+function createEventListeners() {
+    rightAnswer = document.querySelector('.right-answer');
+    rightAnswer.addEventListener("click", rightAnswerGiven);
+    wrongAnswers = document.querySelectorAll('.wrong-answer');
+    wrongAnswers[0].addEventListener("click", wrongAnswer);
+    wrongAnswers[1].addEventListener("click", wrongAnswer);
+    wrongAnswers[2].addEventListener("click", wrongAnswer);
+};
+
+// Record when a right answer is input.
+let rightAnswerTotal = 0;
+function rightAnswerGiven() {
+    console.log("Correct!");
+    rightAnswerTotal++;
+    generateQuestion();
+};
+
+// Record when a wrong answer is input.
+let wrongAnswerTotal = 0;
+function wrongAnswer() {
+    secondsLeft = secondsLeft - 5;
+    console.log("A wrong answer has been entered.");
+    wrongAnswerTotal++;
+    generateQuestion();
+};
+
 // Change page layout to show GAME IS OVER.
 function endGameDisplay() {
     console.log("The game is now over.")
