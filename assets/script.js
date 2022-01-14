@@ -1,7 +1,8 @@
 const displayCountdown = document.querySelector("#countdown-clock");
 const startGameButton = document.querySelector('#start-game-button');
 const wrongAnswerButton = document.querySelector('#wrong-answer-button');
-const generateQuestionButton = document.querySelector('#generate-question-button')
+const generateQuestionButton = document.querySelector('#generate-question-button');
+const questionTitle = document.querySelector('#question-title');
 
 // When START GAME BUTTON clicked: Start timer, change display, run first question.
 startGameButton.addEventListener("click", startGame);
@@ -38,8 +39,10 @@ generateQuestionButton.addEventListener("click", generateQuestion);
 function generateQuestion() {
     console.log("A question is being generated.");
     const nextQuestion = findQuestion();
-    writeQuestionTitle(nextQuestion);
-
+    writeQuestionTitle(nextQuestion); 
+    let correctAnswerLocation = writeCorrectAnswer(nextQuestion);
+    writeOtherAnswers(nextQuestion, correctAnswerLocation);
+    console.log(correctAnswerLocation); 
 };
 
 // Select a new question from the pool; make sure it hasn't already been used. 
@@ -65,8 +68,22 @@ function findQuestion() {
     return questionPool[nextQuestion];
 };
 
+// Write the question to the HTML.
 function writeQuestionTitle(nextQuestion) {
-    console.log(`The question is ${nextQuestion.question}`)
+    questionTitle.innerHTML = `<h1>${nextQuestion.question}</h1>`
+}
+
+// Write the answers to the HTML. Randomly assign the correct answer.
+function writeCorrectAnswer(nextQuestion) {
+    const randomAnswerLocation = Math.floor(Math.random() * 4);
+    console.log('The right answer')
+    console.log(nextQuestion.answer1);
+    return randomAnswerLocation;
+}
+
+function writeOtherAnswers(nextQuestion, correctAnswerLocation) {
+    console.log('The wrong answer')
+    console.log(nextQuestion.answer2);
 }
 
 // Wrong answer button - this is to test code.
