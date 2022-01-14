@@ -8,7 +8,7 @@ let displayCountdown = document.querySelector("#countdown-clock");
 let pressStart = document.getElementById("start-button");
 pressStart.addEventListener("click", isClicked);
 function isClicked() {
-    generateQuestions();
+    generateQuestion();
     displayQuestions();
     startTimer();
     changeDisplay();
@@ -48,9 +48,30 @@ function wrongAnswer() {
 // - Objects/classes that contain the questions(?)
 // - Shuffle / randomly order the responses to present on the page(?).
 // -
-function generateQuestions() {
-    console.log("This would generate the questions.")
-}
+
+generateQuestionButton.addEventListener("click", generateQuestion);
+function generateQuestion() {
+    console.log("A question is being generated.");
+    const nextQuestion = selectNewQuestion();
+    console.log(nextQuestion);
+};
+
+let usedQuestions = [];
+function selectNewQuestion() {
+    if (usedQuestions.length < 5) {
+        let isUsed = true;
+        let randomChoice = "";
+        while (isUsed === true) {
+            randomChoice = Math.floor(Math.random() * 5);
+            isUsed = usedQuestions.includes(randomChoice);
+        }
+        usedQuestions.push(randomChoice);
+        return randomChoice;
+    } else {
+        console.log("All the questions have been used.")
+        return null;
+    }
+} 
 
 function displayQuestions() {
     console.log("This would display the questions.")
