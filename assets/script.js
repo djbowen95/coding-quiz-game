@@ -4,8 +4,9 @@ const wrongAnswerButton = document.querySelector('#wrong-answer-button');
 const generateQuestionButton = document.querySelector('#generate-question-button');
 const questionTitle = document.querySelector('#question-title');
 const responses = document.querySelectorAll('.response');
-rightAnswer = "";
-wrongAnswers = "";
+const lastResponseResult = document.querySelector('#last-response-result');
+let rightAnswer = "";
+let wrongAnswers = "";
 
 // When START GAME BUTTON clicked: Start timer, change display, run first question.
 startGameButton.addEventListener("click", startGame);
@@ -119,7 +120,7 @@ function createEventListeners() {
 // Record when a right answer is input.
 let rightAnswerTotal = 0;
 function rightAnswerGiven() {
-    console.log("Correct!");
+    lastResponseResult.innerHTML = '<h2>Correct! That is the right answer.</h2>'
     rightAnswerTotal++;
     generateQuestion();
 };
@@ -128,7 +129,7 @@ function rightAnswerGiven() {
 let wrongAnswerTotal = 0;
 function wrongAnswer() {
     secondsLeft = secondsLeft - 5;
-    console.log("A wrong answer has been entered.");
+    lastResponseResult.innerHTML = '<h2>Wrong! That is the wrong answer.</h2>'
     wrongAnswerTotal++;
     generateQuestion();
 };
