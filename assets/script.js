@@ -5,7 +5,6 @@ const startGameText = document.querySelector("#start-game-text");
 const endGameText = document.querySelector("#end-game-text");
 endGameText.hidden = true;
 
-const generateQuestionButton = document.querySelector("#generate-question-button");
 const answerContainer = document.querySelector("#answer-container");
 const responses = document.querySelectorAll(".response");
 const lastResponseResult = document.querySelector("#last-response-result");
@@ -46,7 +45,6 @@ function startTimer() {
 }
 
 // Run all functions needed to generate and position a new question on the page.
-generateQuestionButton.addEventListener("click", generateQuestion);
 function generateQuestion() {
   if (usedQuestions.length === questionPool.length) {
     noQuestionsLeft();
@@ -155,7 +153,7 @@ function resetGame() {
 // End the game if all questions are answered automatically.
 function noQuestionsLeft() {
   endGameDisplay();
-  questionTitle.innerHTML = "<h1>All questions answered!</h1>"
+  questionTitle.innerHTML = "<h1>All questions answered!</h1>";
 }
 
 // Questions, stored as objects. The answer1 pair is always 'true'.
