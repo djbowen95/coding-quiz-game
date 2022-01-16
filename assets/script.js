@@ -1,6 +1,6 @@
 const displayCountdown = document.querySelector("#countdown-clock");
 const startGameButton = document.querySelector('#start-game-button');
-const wrongAnswerButton = document.querySelector('#wrong-answer-button');
+const startGameText = document.querySelector('#start-game-text');
 const generateQuestionButton = document.querySelector('#generate-question-button');
 const questionTitle = document.querySelector('#question-title');
 const responses = document.querySelectorAll('.response');
@@ -18,13 +18,14 @@ function startGame() {
 
 // Hide START GAME BUTTON; display TIMER, QUESTIONS, SCORES.
 function changeDisplay() {
+    startGamePage.hidden = true;
     startGameButton.hidden = true;
-    startGameButton.innerHTML = "Try again?";
+    startGameButton.innerHTML = "Start a New Game!";
     displayCountdown.hidden = false;
 };
 
 // Display COUNTDOWN TIMER; have it count down from 60.
-let secondsLeft = 60;
+let secondsLeft = 90;
 function startTimer() {
     const timerInterval = setInterval(function() {
         displayCountdown.innerHTML = secondsLeft + " seconds remaining.";
@@ -128,7 +129,7 @@ function rightAnswerGiven() {
 // Record when a wrong answer is input.
 let wrongAnswerTotal = 0;
 function wrongAnswer() {
-    secondsLeft = secondsLeft - 5;
+    secondsLeft = secondsLeft - 10;
     lastResponseResult.innerHTML = '<h2>Wrong! That is the wrong answer.</h2>'
     wrongAnswerTotal++;
     generateQuestion();

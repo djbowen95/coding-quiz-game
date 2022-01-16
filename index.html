@@ -12,6 +12,24 @@
 </header>
 
 <body>
+    <section id="game-landing-page">
+        <p id="start-game-text">
+            This quiz is designed to test your basic knowledge of Javascript.<br/>
+            It will ask you a series of multiple choice questions.<br/>
+            For each question you answer right, you will gain a point.<br/><br/>
+            You will have 90 seconds to complete the quiz.<br/>
+            For each question you answer wrong, 10 seconds will be deducted from your time.
+        </p>
+        <p id="end-game-text">
+            Times up! That is the end of the quiz.<br/>
+            You scored:<br/>
+            <span class="current-score">0</span></br>
+            Your high score is:<br/>
+            <span class="high-score">0</span></br>
+            Would you like to try again?</br>
+        </p>
+        <button id="start-game-button">Start the Game!</button>
+    </section>
     <section id="answer-container">
         <div id = "last-response-result"></div>
         <div class = "response"></div>
@@ -28,7 +46,6 @@
     <section id="timer">
         <div id="countdown-clock"></div>
     </section>
-        <button id="start-game-button">Start!</button>
         <br/>
         <button id="generate-question-button">Generate Question!</button>
     <script src="assets/script.js"></script>
