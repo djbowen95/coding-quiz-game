@@ -6,6 +6,7 @@ const endGameText = document.querySelector('#end-game-text');
 endGameText.hidden = true; 
 
 const generateQuestionButton = document.querySelector('#generate-question-button');
+const answerContainer = document.querySelector('#answer-container');
 const responses = document.querySelectorAll('.response');
 const lastResponseResult = document.querySelector('#last-response-result');
 const displayCountdown = document.querySelector("#countdown-clock");
@@ -20,15 +21,16 @@ startGameButton.addEventListener("click", startGame);
 function startGame() {
     generateQuestion();
     startTimer();
-    changeDisplay();
+    displayGame();
 };
 
 // Hide START GAME BUTTON; display TIMER, QUESTIONS, SCORES.
-function changeDisplay() {
+function displayGame() {
     startGameText.hidden = true;
     startGameButton.hidden = true;
     startGameButton.innerHTML = "Start a New Game!";
-    displayCountdown.hidden = false;
+    answerContainer.hidden = false;
+    endGameText.hidden = true;
 };
 
 // Display COUNTDOWN TIMER; have it count down from 60.
@@ -40,6 +42,7 @@ function startTimer() {
         if (secondsLeft < 0) {
             clearInterval(timerInterval);
             endGameDisplay();
+            resetGame();
         }
     }, 1000);
 };
@@ -133,18 +136,24 @@ function rightAnswerGiven() {
 };
 
 // Record when a wrong answer is input.
-let wrongAnswerTotal = 0;
 function wrongAnswer() {
     secondsLeft = secondsLeft - 10;
     lastResponseResult.innerHTML = '<h2>Wrong! That is the wrong answer.</h2>'
-    wrongAnswerTotal++;
     generateQuestion();
 };
 
 // Change page layout to show GAME IS OVER.
 function endGameDisplay() {
-    console.log("The game is now over.")
+    endGameText.hidden = false;
+    startGameButton.hidden = false;
+    answerContainer.hidden = true;
+    questionTitle.innerHTML = "<h1>Time's Up!</h1>";
 };
+
+function resetGame() {
+    usedQuestions = [];
+    secondsLeft = 90;
+}
 
 // Questions, stored as objects. The answer1 pair is always 'true'.
 const question1 = { 

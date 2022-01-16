@@ -21,7 +21,7 @@
             For each question you answer wrong, 10 seconds will be deducted from your time.
         </p>
         <p id="end-game-text">
-            Times up! That is the end of the quiz.<br/>
+            That is the end of the quiz.<br/>
             You scored:<br/>
             <span class="current-score">0</span></br>
             Your high score is:<br/>
@@ -30,12 +30,15 @@
         </p>
         <button id="start-game-button">Start the Game!</button>
     </section>
+
     <section id="answer-container">
         <div id = "last-response-result"></div>
         <div class = "response"></div>
         <div class = "response"></div>
         <div class = "response"></div>
         <div class = "response"></div>
+        <div id="countdown-clock"></div>
+        <button id="generate-question-button">Generate Question!</button>
     </section>
     
     <section id="scores">
@@ -43,15 +46,6 @@
         <div id="high-score"></div>
     </section>
 
-    <section id="timer">
-        <div id="countdown-clock"></div>
-    </section>
-        <br/>
-        <button id="generate-question-button">Generate Question!</button>
     <script src="assets/script.js"></script>
-
-    <section id="game-over">
-        <div id="win-lose-text"></div>
-    </section>
 </body>
 </html>
