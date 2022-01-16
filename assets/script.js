@@ -1,199 +1,209 @@
-const questionTitle = document.querySelector('#question-title');
+const questionTitle = document.querySelector("#question-title");
 
-const startGameButton = document.querySelector('#start-game-button');
-const startGameText = document.querySelector('#start-game-text');
-const endGameText = document.querySelector('#end-game-text');
-endGameText.hidden = true; 
+const startGameButton = document.querySelector("#start-game-button");
+const startGameText = document.querySelector("#start-game-text");
+const endGameText = document.querySelector("#end-game-text");
+endGameText.hidden = true;
 
-const generateQuestionButton = document.querySelector('#generate-question-button');
-const answerContainer = document.querySelector('#answer-container');
-const responses = document.querySelectorAll('.response');
-const lastResponseResult = document.querySelector('#last-response-result');
+const generateQuestionButton = document.querySelector(
+  "#generate-question-button"
+);
+const answerContainer = document.querySelector("#answer-container");
+const responses = document.querySelectorAll(".response");
+const lastResponseResult = document.querySelector("#last-response-result");
 const displayCountdown = document.querySelector("#countdown-clock");
 
 let rightAnswer = "";
 let wrongAnswers = "";
 
-
-
 // When START GAME BUTTON clicked: Start timer, change display, run first question.
 startGameButton.addEventListener("click", startGame);
 function startGame() {
-    generateQuestion();
-    startTimer();
-    displayGame();
-};
+  generateQuestion();
+  startTimer();
+  displayGame();
+}
 
 // Hide START GAME BUTTON; display TIMER, QUESTIONS, SCORES.
 function displayGame() {
-    startGameText.hidden = true;
-    startGameButton.hidden = true;
-    startGameButton.innerHTML = "Start a New Game!";
-    answerContainer.hidden = false;
-    endGameText.hidden = true;
-};
+  startGameText.hidden = true;
+  startGameButton.hidden = true;
+  startGameButton.innerHTML = "Start a New Game!";
+  answerContainer.hidden = false;
+  endGameText.hidden = true;
+}
 
 // Display COUNTDOWN TIMER; have it count down from 60.
 let secondsLeft = 90;
 function startTimer() {
-    const timerInterval = setInterval(function() {
-        displayCountdown.innerHTML = secondsLeft + " seconds remaining.";
-        secondsLeft--;
-        if (secondsLeft < 0) {
-            clearInterval(timerInterval);
-            endGameDisplay();
-            resetGame();
-        }
-    }, 1000);
-};
+  const timerInterval = setInterval(function () {
+    displayCountdown.innerHTML = secondsLeft + " seconds remaining.";
+    secondsLeft--;
+    if (secondsLeft < 0) {
+      clearInterval(timerInterval);
+      endGameDisplay();
+      resetGame();
+    }
+  }, 1000);
+}
 
 // Run all functions needed to generate and position a new question on the page.
 // Need an 'if === null' condition in this one.
 generateQuestionButton.addEventListener("click", generateQuestion);
 function generateQuestion() {
-    console.log("A question is being generated.");
+  if (usedQuestions.length === questionPool.length) {
+    noQuestionsLeft();
+  } else {
     const nextQuestion = findQuestion();
-    writeQuestionTitle(nextQuestion); 
+    writeQuestionTitle(nextQuestion);
     const correctAnswerLocation = assignCorrectAnswer();
-    console.log(correctAnswerLocation);
     writeCorrectAnswer(nextQuestion, correctAnswerLocation);
     writeOtherAnswers(nextQuestion, correctAnswerLocation);
     createEventListeners();
-};
+  }
+}
 
-// Select a new question from the pool; make sure it hasn't already been used. 
+// Select a new question from the pool; make sure it hasn't already been used.
 let usedQuestions = [];
 function selectNewQuestion() {
-    if (usedQuestions.length < questionPool.length) {
-        let isUsed = true;
-        let randomChoice = "";
-        while (isUsed === true) {
-            randomChoice = Math.floor(Math.random() * 5);
-            isUsed = usedQuestions.includes(randomChoice);
-        }
-        usedQuestions.push(randomChoice);
-        return randomChoice;
-    } else {
-        console.log("All the questions have been used.")
-        return null;
-    };
-};
+  let isUsed = true;
+  let randomChoice = "";
+  while (isUsed === true) {
+    randomChoice = Math.floor(Math.random() * 5);
+    isUsed = usedQuestions.includes(randomChoice);
+  }
+  usedQuestions.push(randomChoice);
+  return randomChoice;
+}
 
 function findQuestion() {
-    const nextQuestion = selectNewQuestion();
-    return questionPool[nextQuestion];
-};
+  const nextQuestion = selectNewQuestion();
+  return questionPool[nextQuestion];
+}
 
 // Write the question to the HTML.
 function writeQuestionTitle(nextQuestion) {
-    questionTitle.innerHTML = `<h1>${nextQuestion.question}</h1>`
+  questionTitle.innerHTML = `<h1>${nextQuestion.question}</h1>`;
 }
 
 // Write the answers to the HTML. Randomly assign the correct answer.
 function assignCorrectAnswer() {
-    const randomAnswerLocation = Math.floor(Math.random() * 4);
-    return randomAnswerLocation;
+  const randomAnswerLocation = Math.floor(Math.random() * 4);
+  return randomAnswerLocation;
 }
 
 function writeCorrectAnswer(nextQuestion, correctAnswerLocation) {
-    responses[correctAnswerLocation].innerHTML = `<p class="right-answer">${nextQuestion.answer1}</p>`;
+  responses[
+    correctAnswerLocation
+  ].innerHTML = `<p class="right-answer">${nextQuestion.answer1}</p>`;
 }
 
 function writeOtherAnswers(nextQuestion, correctAnswerLocation) {
-    if (correctAnswerLocation != 0) {
-        responses[0].innerHTML = `<p class="wrong-answer">${nextQuestion.answer2}</p>`;
-    } else {
-        responses[3].innerHTML = `<p class="wrong-answer">${nextQuestion.answer2}</p>`;
-    }
-    if (correctAnswerLocation != 1) {
-        responses[1].innerHTML = `<p class="wrong-answer">${nextQuestion.answer3}</p>`;
-    } else {
-        responses[3].innerHTML = `<p class="wrong-answer">${nextQuestion.answer3}</p>`;
-    }
-    if (correctAnswerLocation != 2) {
-        responses[2].innerHTML = `<p class="wrong-answer">${nextQuestion.answer4}</p>`;
-    } else {
-        responses[3].innerHTML = `<p class="wrong-answer">${nextQuestion.answer4}</p>`;
-    }
-};
+  if (correctAnswerLocation != 0) {
+    responses[0].innerHTML = `<p class="wrong-answer">${nextQuestion.answer2}</p>`;
+  } else {
+    responses[3].innerHTML = `<p class="wrong-answer">${nextQuestion.answer2}</p>`;
+  }
+  if (correctAnswerLocation != 1) {
+    responses[1].innerHTML = `<p class="wrong-answer">${nextQuestion.answer3}</p>`;
+  } else {
+    responses[3].innerHTML = `<p class="wrong-answer">${nextQuestion.answer3}</p>`;
+  }
+  if (correctAnswerLocation != 2) {
+    responses[2].innerHTML = `<p class="wrong-answer">${nextQuestion.answer4}</p>`;
+  } else {
+    responses[3].innerHTML = `<p class="wrong-answer">${nextQuestion.answer4}</p>`;
+  }
+}
 
 // Create event listeners once question has been generated.
 function createEventListeners() {
-    rightAnswer = document.querySelector('.right-answer');
-    rightAnswer.addEventListener("click", rightAnswerGiven);
-    wrongAnswers = document.querySelectorAll('.wrong-answer');
-    wrongAnswers[0].addEventListener("click", wrongAnswer);
-    wrongAnswers[1].addEventListener("click", wrongAnswer);
-    wrongAnswers[2].addEventListener("click", wrongAnswer);
-};
+  rightAnswer = document.querySelector(".right-answer");
+  rightAnswer.addEventListener("click", rightAnswerGiven);
+  wrongAnswers = document.querySelectorAll(".wrong-answer");
+  wrongAnswers[0].addEventListener("click", wrongAnswer);
+  wrongAnswers[1].addEventListener("click", wrongAnswer);
+  wrongAnswers[2].addEventListener("click", wrongAnswer);
+}
 
 // Record when a right answer is input.
 let rightAnswerTotal = 0;
 function rightAnswerGiven() {
-    lastResponseResult.innerHTML = '<h2>Correct! That is the right answer.</h2>'
-    rightAnswerTotal++;
-    generateQuestion();
-};
+  lastResponseResult.innerHTML = "<h2>Correct! That is the right answer.</h2>";
+  rightAnswerTotal++;
+  generateQuestion();
+}
 
 // Record when a wrong answer is input.
 function wrongAnswer() {
-    secondsLeft = secondsLeft - 10;
-    lastResponseResult.innerHTML = '<h2>Wrong! That is the wrong answer.</h2>'
-    generateQuestion();
-};
+  secondsLeft = secondsLeft - 10;
+  lastResponseResult.innerHTML = "<h2>Wrong! That is the wrong answer.</h2>";
+  generateQuestion();
+}
 
 // Change page layout to show GAME IS OVER.
 function endGameDisplay() {
-    endGameText.hidden = false;
-    startGameButton.hidden = false;
-    answerContainer.hidden = true;
-    questionTitle.innerHTML = "<h1>Time's Up!</h1>";
-};
+  endGameText.hidden = false;
+  startGameButton.hidden = false;
+  answerContainer.hidden = true;
+  questionTitle.innerHTML = "<h1>Time's Up!</h1>";
+}
 
+// Reset the game when the timer runs out.
 function resetGame() {
-    usedQuestions = [];
-    secondsLeft = 90;
+  usedQuestions = [];
+  secondsLeft = 90;
+}
+
+//
+function noQuestionsLeft() {
+  console.log("No questions left.");
 }
 
 // Questions, stored as objects. The answer1 pair is always 'true'.
-const question1 = { 
-    question: "What is a boolean?",
-    answer1: "A data type that is either true or false.",
-    answer2: "A type of error, caused by ghosts.",
-    answer3: "A string that contains both letter and number characters.",
-    answer4: "A type of shoe traditionally worn by small Norwegian men.",
+const question1 = {
+  question: "What is a boolean?",
+  answer1: "A data type that is either true or false.",
+  answer2: "A type of error, caused by ghosts.",
+  answer3: "A string that contains both letter and number characters.",
+  answer4: "A type of shoe traditionally worn by small Norwegian men.",
 };
 
-const question2 = { 
-    question: "What is a string?",
-    answer1: "Zero or more characters written with quotes, which can be stored in a variable.",
-    answer2: "Several different variables, connected together in a row, like knots in a rope.",
-    answer3: "Something used to lace up traditional shoes worn by small Norwegian men.",
-    answer4: "A mathematical sum that is automatically calculated in the console.",
+const question2 = {
+  question: "What is a string?",
+  answer1:
+    "Zero or more characters written with quotes, which can be stored in a variable.",
+  answer2:
+    "Several different variables, connected together in a row, like knots in a rope.",
+  answer3:
+    "Something used to lace up traditional shoes worn by small Norwegian men.",
+  answer4:
+    "A mathematical sum that is automatically calculated in the console.",
 };
 
-const question3 = { 
-    question: "What command would you need to put in your code to display something in the console?",
-    answer1: "console.log('Your Text Here')",
-    answer2: "log.this('Your Text Here')",
-    answer3: "speak('Your Text Here')",
-    answer4: "help me little norwegian man, write this text('Your Text Here')",
+const question3 = {
+  question:
+    "What command would you need to put in your code to display something in the console?",
+  answer1: "console.log('Your Text Here')",
+  answer2: "log.this('Your Text Here')",
+  answer3: "speak('Your Text Here')",
+  answer4: "help me little norwegian man, write this text('Your Text Here')",
 };
 
 const question4 = {
-    question: "Which of these could you use to start a conditional statement?",
-    answer1: "if",
-    answer2: "can",
-    answer3: "conditional-statement",
-    answer4: "clip-clap.the-magic-shoes",
+  question: "Which of these could you use to start a conditional statement?",
+  answer1: "if",
+  answer2: "can",
+  answer3: "conditional-statement",
+  answer4: "clip-clap.the-magic-shoes",
 };
 
 const question5 = {
-    question: "Why would you want to create a loop?",
-    answer1: "To repeat several lines of code multiple times.",
-    answer2: "To disrupt the time space continuum.",
-    answer3: "To lace up your traditional wooden shoes.",
-    answer4: "Its fun to annoy the computer.",
+  question: "Why would you want to create a loop?",
+  answer1: "To repeat several lines of code multiple times.",
+  answer2: "To disrupt the time space continuum.",
+  answer3: "To lace up your traditional wooden shoes.",
+  answer4: "Its fun to annoy the computer.",
 };
 
 const questionPool = [question1, question2, question3, question4, question5];
