@@ -30,13 +30,14 @@ function startGame() {
 
 newGameButton.addEventListener("click", newGame);
 function newGame() {
-    secondsLeft = 90;
-    usedQuestions = [];
-    rightAnswerTotal = 0;
-    lastResponseResult.innerHTML = "";
-    generateQuestion();
-    displayGame();
-};
+  secondsLeft = 90;
+  usedQuestions = [];
+  rightAnswerTotal = 0;
+  lastResponseResult.innerHTML = "";
+  newGameButton.hidden = true;
+  generateQuestion();
+  displayGame();
+}
 
 // Hide START GAME BUTTON; display TIMER, QUESTIONS, SCORES.
 function displayGame() {
@@ -100,8 +101,9 @@ function assignCorrectAnswer() {
 }
 
 function writeCorrectAnswer(nextQuestion, correctAnswerLocation) {
-  responses[correctAnswerLocation
-].innerHTML = `<p class="right-answer">${nextQuestion.answer1}</p>`;
+  responses[
+    correctAnswerLocation
+  ].innerHTML = `<p class="right-answer">${nextQuestion.answer1}</p>`;
 }
 
 function writeOtherAnswers(nextQuestion, correctAnswerLocation) {
@@ -152,7 +154,7 @@ function wrongAnswer() {
 function endGame(allQuestionsAnswered) {
   recordScores();
   endGameText.hidden = false;
-        newGameButton.hidden = false;
+  newGameButton.hidden = false;
   answerContainer.hidden = true;
   if (allQuestionsAnswered === true) {
     questionTitle.innerHTML = "<h1>All questions answered!</h1>";
