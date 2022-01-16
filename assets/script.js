@@ -1,12 +1,19 @@
-const displayCountdown = document.querySelector("#countdown-clock");
+const questionTitle = document.querySelector('#question-title');
+
 const startGameButton = document.querySelector('#start-game-button');
 const startGameText = document.querySelector('#start-game-text');
+const endGameText = document.querySelector('#end-game-text');
+endGameText.hidden = true; 
+
 const generateQuestionButton = document.querySelector('#generate-question-button');
-const questionTitle = document.querySelector('#question-title');
 const responses = document.querySelectorAll('.response');
 const lastResponseResult = document.querySelector('#last-response-result');
+const displayCountdown = document.querySelector("#countdown-clock");
+
 let rightAnswer = "";
 let wrongAnswers = "";
+
+
 
 // When START GAME BUTTON clicked: Start timer, change display, run first question.
 startGameButton.addEventListener("click", startGame);
@@ -18,7 +25,7 @@ function startGame() {
 
 // Hide START GAME BUTTON; display TIMER, QUESTIONS, SCORES.
 function changeDisplay() {
-    startGamePage.hidden = true;
+    startGameText.hidden = true;
     startGameButton.hidden = true;
     startGameButton.innerHTML = "Start a New Game!";
     displayCountdown.hidden = false;
@@ -32,7 +39,6 @@ function startTimer() {
         secondsLeft--;
         if (secondsLeft < 0) {
             clearInterval(timerInterval);
-            displayCountdown.innerHTML = "Time's up!";
             endGameDisplay();
         }
     }, 1000);
