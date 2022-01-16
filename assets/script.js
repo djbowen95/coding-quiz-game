@@ -1,17 +1,23 @@
 const questionTitle = document.querySelector("#question-title");
 
 const startGameButton = document.querySelector("#start-game-button");
+const newGameButton = document.querySelector("#new-game-button");
 const startGameText = document.querySelector("#start-game-text");
 const endGameText = document.querySelector("#end-game-text");
 endGameText.hidden = true;
+newGameButton.hidden = true;
 
 const answerContainer = document.querySelector("#answer-container");
 const responses = document.querySelectorAll(".response");
 const lastResponseResult = document.querySelector("#last-response-result");
 const displayCountdown = document.querySelector("#countdown-clock");
 
+const currentScore = document.querySelector(".current-score");
+const highScore = document.querySelector(".high-score");
+
 let rightAnswer = "";
 let wrongAnswers = "";
+let secondsLeft = 90;
 
 // When START GAME BUTTON clicked: Start timer, change display, run first question.
 startGameButton.addEventListener("click", startGame);
@@ -19,26 +25,33 @@ function startGame() {
   generateQuestion();
   startTimer();
   displayGame();
+  startGameButton.hidden = true;
 }
+
+newGameButton.addEventListener("click", newGame);
+function newGame() {
+    secondsLeft = 90;
+    usedQuestions = [];
+    rightAnswerTotal = 0;
+    lastResponseResult.innerHTML = "";
+    generateQuestion();
+    displayGame();
+};
 
 // Hide START GAME BUTTON; display TIMER, QUESTIONS, SCORES.
 function displayGame() {
   startGameText.hidden = true;
-  startGameButton.hidden = true;
-  startGameButton.innerHTML = "Start a New Game!";
   answerContainer.hidden = false;
   endGameText.hidden = true;
 }
 
 // Display COUNTDOWN TIMER; have it count down from 60.
-let secondsLeft = 90;
 function startTimer() {
   const timerInterval = setInterval(function () {
     displayCountdown.innerHTML = secondsLeft + " seconds remaining.";
     secondsLeft--;
     if (secondsLeft < 0) {
-      clearInterval(timerInterval);
-      endGameDisplay();
+      endGame(false);
       resetGame();
     }
   }, 1000);
@@ -123,8 +136,9 @@ function createEventListeners() {
 
 // Record when a right answer is input.
 let rightAnswerTotal = 0;
+let highScoreValue = 0;
 function rightAnswerGiven() {
-  lastResponseResult.innerHTML = "<h2>Correct! That is the right answer.</h2>";
+  lastResponseResult.innerHTML = "<em>Correct! That is the right answer.</em>";
   rightAnswerTotal++;
   generateQuestion();
 }
@@ -132,28 +146,39 @@ function rightAnswerGiven() {
 // Record when a wrong answer is input.
 function wrongAnswer() {
   secondsLeft = secondsLeft - 10;
-  lastResponseResult.innerHTML = "<h2>Wrong! That is the wrong answer.</h2>";
+  lastResponseResult.innerHTML = "<em>Wrong! That is the wrong answer.</em>";
   generateQuestion();
 }
 
 // Change page layout to show GAME IS OVER.
-function endGameDisplay() {
+function endGame(allQuestionsAnswered) {
+  recordScores();
   endGameText.hidden = false;
-  startGameButton.hidden = false;
+        newGameButton.hidden = false;
   answerContainer.hidden = true;
-  questionTitle.innerHTML = "<h1>Time's Up!</h1>";
+  if (allQuestionsAnswered === true) {
+    questionTitle.innerHTML = "<h1>All questions answered!</h1>";
+  } else if (allQuestionsAnswered === false) {
+    questionTitle.innerHTML = "<h1>Time's Up!</h1>";
+  }
+}
+
+function recordScores() {
+  currentScore.innerHTML = `${rightAnswerTotal}`;
+  if (rightAnswerTotal > highScoreValue) {
+    highScoreValue = rightAnswerTotal;
+  }
+  highScore.innerHTML = highScoreValue;
 }
 
 // Reset the game when the timer runs out.
 function resetGame() {
   usedQuestions = [];
-  secondsLeft = 90;
 }
 
 // End the game if all questions are answered automatically.
 function noQuestionsLeft() {
-  endGameDisplay();
-  questionTitle.innerHTML = "<h1>All questions answered!</h1>";
+  endGame(true);
 }
 
 // Questions, stored as objects. The answer1 pair is always 'true'.
