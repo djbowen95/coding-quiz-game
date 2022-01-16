@@ -52,7 +52,6 @@ function startTimer() {
     secondsLeft--;
     if (secondsLeft < 0) {
       endGame(false);
-      resetGame();
     }
   }, 1000);
 }
@@ -60,7 +59,7 @@ function startTimer() {
 // Run all functions needed to generate and position a new question on the page.
 function generateQuestion() {
   if (usedQuestions.length === questionPool.length) {
-    noQuestionsLeft();
+    endGame(true);
   } else {
     const nextQuestion = findQuestion();
     const correctAnswerLocation = assignCorrectAnswer();
@@ -101,9 +100,8 @@ function assignCorrectAnswer() {
 }
 
 function writeCorrectAnswer(nextQuestion, correctAnswerLocation) {
-  responses[
-    correctAnswerLocation
-  ].innerHTML = `<p class="right-answer">${nextQuestion.answer1}</p>`;
+  responses[correctAnswerLocation
+].innerHTML = `<p class="right-answer">${nextQuestion.answer1}</p>`;
 }
 
 function writeOtherAnswers(nextQuestion, correctAnswerLocation) {
@@ -169,16 +167,6 @@ function recordScores() {
     highScoreValue = rightAnswerTotal;
   }
   highScore.innerHTML = highScoreValue;
-}
-
-// Reset the game when the timer runs out.
-function resetGame() {
-  usedQuestions = [];
-}
-
-// End the game if all questions are answered automatically.
-function noQuestionsLeft() {
-  endGame(true);
 }
 
 // Questions, stored as objects. The answer1 pair is always 'true'.
