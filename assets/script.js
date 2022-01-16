@@ -64,7 +64,7 @@ function selectNewQuestion() {
   let isUsed = true;
   let randomChoice = "";
   while (isUsed === true) {
-    randomChoice = Math.floor(Math.random() * 5);
+    randomChoice = Math.floor(Math.random() * questionPool.length);
     isUsed = usedQuestions.includes(randomChoice);
   }
   usedQuestions.push(randomChoice);
@@ -162,7 +162,7 @@ const question1 = {
   answer1: "A data type that is either true or false.",
   answer2: "A type of error, caused by ghosts.",
   answer3: "A string that contains both letter and number characters.",
-  answer4: "A type of shoe traditionally worn by small Norwegian men.",
+  answer4: "A type of traditional Norweigian shoe.",
 };
 
 const question2 = {
@@ -172,18 +172,18 @@ const question2 = {
   answer2:
     "Several different variables, connected together in a row, like knots in a rope.",
   answer3:
-    "Something used to lace up traditional shoes worn by small Norwegian men.",
-  answer4:
     "A mathematical sum that is automatically calculated in the console.",
+  answer4:
+    "The laces used to tie up traditional Norweigian shoes worn by a computer.",
 };
 
 const question3 = {
   question:
-    "What command would you need to put in your code to display something in the console?",
+    "What command would you need to put in your code to display 'Your Text Here' in the console?",
   answer1: "console.log('Your Text Here')",
   answer2: "log.this('Your Text Here')",
   answer3: "speak('Your Text Here')",
-  answer4: "help me little norwegian man, write this text('Your Text Here')",
+  answer4: "beeep boooooop",
 };
 
 const question4 = {
@@ -191,7 +191,7 @@ const question4 = {
   answer1: "if",
   answer2: "can",
   answer3: "conditional-statement",
-  answer4: "clip-clap.the-magic-shoes",
+  answer4: "clip clap",
 };
 
 const question5 = {
@@ -202,4 +202,57 @@ const question5 = {
   answer4: "Its fun to annoy the computer.",
 };
 
-const questionPool = [question1, question2, question3, question4, question5];
+const question6 = {
+  question: "Which of these two keywords are commonly used to create a loop?",
+  answer1: "for and while",
+  answer2: "if and when",
+  answer3: "loop and loopy",
+  answer4: "clip and clap",
+};
+
+const question7 = {
+  question:
+    "Which two languages are commonly used with Javascript to build a webpage",
+  answer1: "HTML and CSS",
+  answer2: "HTML and CSY",
+  answer3: "jQuery and Bootstrap",
+  answer4: "Bootstrap made by Norweigan elves",
+};
+
+const question8 = {
+  question: "What is string concatenation?",
+  answer1: "Adding two strings together and storing them as one string value",
+  answer2: "Including a cat value within the string",
+  answer3: "Something a computer does to get a little buzz",
+  answer4: "A way of storing a string in an array",
+};
+
+const question9 = {
+  question: "What is a function?",
+  answer1:
+    "A set of instructions / code for the computer stored in one place, so it can be used multiple times",
+  answer2: "Any of the maths symbols: +, -, / or *",
+  answer3: "What we use to compare numerical and boolean values, ie: '==='",
+  answer4: "A small gathering of friends, or computers who like each other",
+};
+
+const question10 = {
+  question: "Why is it important to regularly test code?",
+  answer1: "So that bugs can quickly be recognised and fixed",
+  answer2: "To keep the computer actively thinking and on its toes",
+  answer3: "To exhaust the computer so its more likely to do what you want",
+  answer4:
+    "If a computer runs through code repeatedly, its more like to remember it and get it right",
+};
+const questionPool = [
+  question1,
+  question2,
+  question3,
+  question4,
+  question5,
+  question6,
+  question7,
+  question8,
+  question9,
+  question10,
+];
