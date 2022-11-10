@@ -139,4 +139,17 @@ I would like to implement some of the following features:
 ### 03F Question Bank
 Lines 172 - 272 of .assets/script.js are objects which contain the questions.  
 I would like these questions to be stored somewhere else.  
-I would also like to refactor the code and bring down the overall length.   
+I would also like to refactor the code and bring down the overall length.
+
+### To do list - new
+ - Bring in Granim.js
+ - Design whale images
+ - Responsive design (media queries, flexbox or grid (preferably just fb))
+ - Local storage for scores, high score page
+ - Modularise + question bank - whale questions
+ - Modularise pages with Handlebars (?)
+ - jQuery for DOM manipulation
+ - Progress bar
+ - Rewrite README
+
+ - Pages: welcome page, learn about whales, quiz, high scores

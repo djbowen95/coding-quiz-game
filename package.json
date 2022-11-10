@@ -1,0 +1,31 @@
+{
+  "name": "cool-whale-facts",
+  "version": "2.0.0",
+  "description": "Javascript quiz game built to teach and test whale trivia. Built using CSS flexbox and the Granim.js node module.",
+  "main": "/assets/script.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djbowen95/coding-quiz-game.git"
+  },
+  "keywords": [
+    "javascript",
+    "quiz",
+    "bootcamp",
+    "granim",
+    "flexbox",
+    "html",
+    "css"
+  ],
+  "author": "Daniel Bowen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/djbowen95/coding-quiz-game/issues"
+  },
+  "homepage": "https://github.com/djbowen95/coding-quiz-game#readme",
+  "dependencies": {
+    "granim": "^2.0.0"
+  }
+}
