@@ -7,6 +7,11 @@ const granimInstance = new Granim({
     element: '#canvas-basic',
     direction: 'left-right',
     isPausedWhenNotInView: true,
+    image : {
+        source: '../assets/img/whale.png',
+        blendingMode: 'multiply',
+        stretchMode: ['stretch-if-bigger', 'stretch-if-bigger']
+    },
     states : {
         "default-state": {
             gradients: [
